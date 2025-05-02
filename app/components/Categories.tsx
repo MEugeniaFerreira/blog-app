@@ -1,12 +1,15 @@
 import React from 'react'
-import { CategoryType } from 'types/types'
+import CategoryItem from '@components/CategoryItem'
+import { CategoriesType } from 'types/types'
 
-
-const Categories = ({ name, slug } : CategoryType) => {
+const Categories = ({ categories, asLink = true } : CategoriesType) => {
   return (
     <div>
-      {name}
-      {slug}
+      <div className="categories-list">
+        {categories.map((category) => (
+            <CategoryItem key={category.slug} {...category} asLink = { asLink } />
+        ))}
+      </div>
     </div>
   )
 }

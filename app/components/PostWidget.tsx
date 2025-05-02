@@ -1,11 +1,7 @@
 import React from 'react'
+import { PostWidgetType } from 'types/types'
 
-type PostWidgetProps = {  
-  categories: string[];
-  slug: string; 
-}
-
-const PostWidget = ({ categories, slug } : PostWidgetProps) => {
+const PostWidget = ({ categories, slug } : PostWidgetType) => {
   return (
     <>
       <div>PostWidget</div>

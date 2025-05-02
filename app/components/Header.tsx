@@ -1,13 +1,10 @@
-import React, { useContext } from 'react'
+import React, {  } from 'react'
 import Link from 'next/link'
-import { Categories } from '@components/index';
-import { CategoryType } from 'types/types';
+import { HeaderType } from 'types/types';
+import { headerCategories } from '@data/mocks';
+import CategoryItem from '@components/CategoryItem';
 
-type HeaderProps = {
-  categories: CategoryType[];
-};
-
-const Header = ({ categories }: HeaderProps )=> {
+const Header = ({  }: HeaderType )=> {
   return (
     <div className="container mx-auto px-10 mb-8">
       <div className="border-b w-full inline-block border-blue-400 py-8">
@@ -19,12 +16,10 @@ const Header = ({ categories }: HeaderProps )=> {
           </Link>
         </div>
         <div className="hidden md:float-left md:contents">
-          {categories.map((category) => (
-            <Link key={category.slug} href={`/category/${category.slug}`}>
-              <span className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
-                <Categories key={category.slug} name={category.name} slug={category.slug} />
-              </span>
-            </Link>
+          {headerCategories.map((hCategory) => (
+            <span key={hCategory.slug} className="md:float-right mt-2 align-middle text-white ml-4 font-semibold cursor-pointer">
+              <CategoryItem name={hCategory.name} slug={hCategory.slug} asLink={true} key={hCategory.slug} />
+            </span>
           ))}
         </div>
       </div>

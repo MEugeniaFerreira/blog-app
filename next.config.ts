@@ -1,7 +1,9 @@
-import type { NextConfig } from "next";
 import path from "path";
 
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+
+const nextConfig: import('next').NextConfig = {
+
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -9,8 +11,20 @@ const nextConfig: NextConfig = {
       '@types': path.resolve(__dirname, 'types'),
       '@data': path.resolve(__dirname, 'data'),
     };
+    
     return config;
   },
+
+  images: {
+    remotePatterns: /** @type {import('next').RemotePattern[]} */ [
+      {
+        protocol: 'https',
+        hostname: 'ap-south-1.graphassets.com',
+        pathname: '**', // allow all paths
+      },
+    ],
+  },
+  
 };
 
 export default nextConfig;
