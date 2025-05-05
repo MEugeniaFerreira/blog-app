@@ -21,7 +21,7 @@ export default function HomeContent({ posts, categories }: Props) {
         <div className="lg:col-span-4 col-span-1">
           <div className="lg:sticky relative top-8">
             <PostWidget categories={[]} slug="" />
-            <Categories categories={categories} asLink={false} />
+            <Categories categories={categories} asLink={true} />
           </div>
         </div>
       </div>

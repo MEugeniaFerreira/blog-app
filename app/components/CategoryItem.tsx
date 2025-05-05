@@ -1,11 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { CategoryItemType } from 'types/types';
+import { CategoryItemProps } from 'types/types';
 
 
-const CategoryItem = ({ name, slug, asLink = true } : CategoryItemType) => {
+const CategoryItem = ({ name, slug, asLink = true } : CategoryItemProps) => {
   return asLink ? 
-    ( <Link href={`/category/${slug}`}> {name} </Link>
+    ( <Link href={`/category/${slug}`} className="block pb-3"> {name} </Link>
     ) : (
       <>{name}</>
   ) 

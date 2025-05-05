@@ -14,6 +14,12 @@ const customJestConfig  = {
     '^@services/(.*)$': '<rootDir>/services/$1',
     '^@services$': '<rootDir>/services/index',
   },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest', // Use Babel to transform files
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!graphql-request)', // Allow Jest to transform `graphql-request`
+  ],
   testMatch: [
     '**/tests/**/*.(test|spec).{js,jsx,ts,tsx}',
   ],

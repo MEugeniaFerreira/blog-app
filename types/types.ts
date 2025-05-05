@@ -1,43 +1,53 @@
-type Header = {
-	categories: Category[];
+// ─── CATEGORY TYPES ───────────────────────────────────────────────────────────
+
+export type CategoryType = {
+  name: string;
+  slug: string; // Required for URL/key logic
 };
 
-type Category = {
-	name: string;
-	slug?: string;
+// Props for a single CategoryItem component
+export type CategoryItemProps = CategoryType & {
+  asLink?: boolean; // If the category should render as a link
 };
 
-type CategoryItem = Category & {
-	asLink?: boolean;
+// Props for the Categories list component
+export type CategoriesProps = {
+  categories?: CategoryType[]; // Optional to allow fallback fetch
+  asLink?: boolean;
 };
 
-type Categories = {
-	categories: Category[];
-	asLink?: boolean;
+// ─── HEADER TYPE ───────────────────────────────────────────────────────────────
+
+export type HeaderProps = {
+  categories?: CategoryType[];
 };
 
-type Post =  {
+// ─── POST TYPES ───────────────────────────────────────────────────────────────
+
+export type AuthorType = {
+  name: string;
+  photo: {
+    url: string;
+  };
+  bio?: string;
+  id?: string;
+};
+
+export type PostType = {
   createdAt: string;
   title: string;
-	exerpt: string;
-	featuredImage: {
-		url: string; // Define featuredImage as an object with a url property
-	};
-	url?: string; // Add url property to Post type
-	slug?: string;
-	author: {
-		name: string;
-		photo: {
-			url: string;
-		};
-		bio?: string;
-		id?: string;
-	};
+  excerpt: string;
+  slug: string;
+  featuredImage: {
+    url: string;
+  };
+  url?: string; // Optional override for external or custom URLs
+  author?: AuthorType;
 };
 
-type PostWidget = {
-	categories: string[];
-	slug: string;
-};
+// ─── POST WIDGET ──────────────────────────────────────────────────────────────
 
-export type { Header as HeaderType, Category as CategoryType, CategoryItem as CategoryItemType, Categories as CategoriesType, Post as PostType, PostWidget as PostWidgetType};
+export type PostWidgetProps = {
+  categories: string[]; // These are category slugs
+  slug?: string;        // Current post slug (optional)
+};

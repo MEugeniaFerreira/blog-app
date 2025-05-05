@@ -3,7 +3,7 @@ import { PostType, CategoryType } from 'types/types';
 const posts: PostType[] = [
   {
     title: 'React Testing',
-    exerpt: 'Learn react testing',
+    excerpt: 'Learn react testing',
     featuredImage: {
       url: 'https://example.com/image.jpg'
     },
@@ -13,11 +13,12 @@ const posts: PostType[] = [
         url: ''
       }
     },
-    createdAt: ''
+    createdAt: '',
+    slug: 'react-testing'
   }, 
   {
     title: 'React with tailwind',
-    exerpt: 'Learn react with tailwind',
+    excerpt: 'Learn react with tailwind',
     featuredImage: {
       url: 'https://example.com/image.jpg'
     },
@@ -27,7 +28,8 @@ const posts: PostType[] = [
         url: ''
       }
     },
-    createdAt: ''
+    createdAt: '',
+    slug: 'react-with-tailwind'
   },
 ]
 
