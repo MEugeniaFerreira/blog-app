@@ -1,29 +1,26 @@
-// ─── CATEGORY TYPES ───────────────────────────────────────────────────────────
-
+// category types
 export type CategoryType = {
   name: string;
   slug: string; // Required for URL/key logic
 };
 
-// Props for a single CategoryItem component
+// props for a single CategoryItem component
 export type CategoryItemProps = CategoryType & {
-  asLink?: boolean; // If the category should render as a link
+  asLink?: boolean; // if it must render as a link
 };
 
-// Props for the Categories list component
+// props for the Categories list component
 export type CategoriesProps = {
-  categories?: CategoryType[]; // Optional to allow fallback fetch
+  categories?: CategoryType[];
   asLink?: boolean;
 };
 
-// ─── HEADER TYPE ───────────────────────────────────────────────────────────────
-
+// header 
 export type HeaderProps = {
   categories?: CategoryType[];
 };
 
-// ─── POST TYPES ───────────────────────────────────────────────────────────────
-
+// posts
 export type AuthorType = {
   name: string;
   photo: {
@@ -33,7 +30,12 @@ export type AuthorType = {
   id?: string;
 };
 
+export type AuthorProps = {
+  author: AuthorType;
+};
+
 export type PostType = {
+  categories: CategoryType[];
   createdAt: string;
   title: string;
   excerpt: string;
@@ -41,13 +43,58 @@ export type PostType = {
   featuredImage: {
     url: string;
   };
-  url?: string; // Optional override for external or custom URLs
-  author?: AuthorType;
+  content: {
+    raw: {
+      children: ContentType[];
+    };
+  };
+  url?: string;
+  author: AuthorType;
 };
 
-// ─── POST WIDGET ──────────────────────────────────────────────────────────────
+export type PostProps = {
+  post: PostType;
+};
 
+//post widget
 export type PostWidgetProps = {
-  categories: string[]; // These are category slugs
-  slug?: string;        // Current post slug (optional)
+  categories: string[];
+  slug?: string;// current post slug (optional)
 };
+
+//content types
+
+export type ContentType = {
+  type: string;
+  children: ContentChildType[];
+  src: string;
+  title: string;
+  height?: number;
+  width?: number;
+};
+
+export type ContentChildType = {
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+};
+
+
+//comments
+
+export type CommentType = {
+  name: string;
+  createdAt: string;
+  message: string;
+}
+export type CommentProps = { 
+  slug: string;
+};
+
+export type CommentsFormProps = {
+  message: string;
+  email: string;
+  slug: string;
+};
+

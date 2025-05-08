@@ -1,3 +1,5 @@
+'use client';
+
 import React, {useState, useEffect} from 'react'
 import { PostWidgetProps, PostType } from 'types/types'
 import Link from 'next/link';

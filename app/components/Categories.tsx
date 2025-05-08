@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from 'react';
 import CategoryItem from '@components/CategoryItem';
 import { getCategories } from '@services';

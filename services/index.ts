@@ -40,15 +40,46 @@ const getPosts = async (): Promise<PostType[]> => {
 	return result.postsConnection.edges.map(({ node }) => node);
 };
 
+const getPostDetails = async (slug: string): Promise<PostType> => {
+	const query = gql`
+    query GetPostDetails($slug: String!) {
+      post(where: { slug: $slug }) {
+        author {
+          bio
+          name
+          id
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        title
+				excerpt
+				featuredImage {
+					url
+				}
+				categories {
+					name
+					slug
+				}
+				content {
+					raw
+				}
+      }
+    }
+  `;
+
+  const result = await request<{ post: PostType }>(graphqlAPI, query, { slug });
+
+  return result.post;
+};
+
 // Get Recent Posts (excluding a slug)
 const getRecentPosts = async (slugToExclude?: string): Promise<PostType[]> => {
 	const query = gql`
 		query GetRecentPosts($slug: String!) {
-			posts(
-				where: { slug_not: $slug }
-				orderBy: createdAt_ASC
-				last: 3
-			) {
+			posts(where: { slug_not: $slug }, orderBy: createdAt_ASC, last: 3) {
 				title
 				featuredImage {
 					url
@@ -70,13 +101,7 @@ const getRecentPosts = async (slugToExclude?: string): Promise<PostType[]> => {
 const getSimilarPosts = async (categories: string[], slug: string): Promise<PostType[]> => {
 	const query = gql`
 		query GetSimilarPosts($slug: String!, $categories: [String!]) {
-			posts(
-				where: {
-					slug_not: $slug
-					AND: { categories_some: { slug_in: $categories } }
-				}
-				last: 3
-			) {
+			posts(where: { slug_not: $slug, AND: { categories_some: { slug_in: $categories } } }, last: 3) {
 				title
 				featuredImage {
 					url
@@ -98,17 +123,14 @@ const getSimilarPosts = async (categories: string[], slug: string): Promise<Post
 const getCategories = async (): Promise<CategoryType[]> => {
 	const query = gql`
 		query GetCategories {
-			categories {	
+			categories {
 				name
 				slug
 			}
 		}
-	
 	`;
 	const result = await request<{ categories: CategoryType[] }>(graphqlAPI, query);
-  return result.categories;
+	return result.categories;
 };
 
-		
-
-export { getPosts, getRecentPosts, getSimilarPosts, getCategories };
+export { getPosts, getRecentPosts, getSimilarPosts, getCategories, getPostDetails };
