@@ -1,17 +1,20 @@
 import { getCategories, getCategoryPosts } from '@services';
 import { PostCard, Categories } from '@components/index';
 import { notFound } from 'next/navigation';
+import { CategoryType } from 'types/types';
 
 type Props = {
-  params: { slug: string };
+  params: {
+    slug: string;
+  };
 };
 
-export default async function CategoryPost({ params }: Props) {
-  // Fetch posts for the given category slug
+export default async function CategoryPostPage({ params }: Props) {
   const posts = await getCategoryPosts(params.slug);
 
+
   if (!posts || posts.length === 0) {
-    notFound(); // Show 404 page if no posts are found
+    return notFound();
   }
 
   return (
@@ -32,13 +35,14 @@ export default async function CategoryPost({ params }: Props) {
   );
 }
 
-// Generates static paths for all category slugs
+// generating static params for dynamic routes
 export async function generateStaticParams() {
   const categories = await getCategories();
 
-  return categories.map((category) => ({
+  return categories.map((category: CategoryType) => ({
     slug: category.slug,
   }));
 }
 
+// isr
 export const revalidate = 60;
