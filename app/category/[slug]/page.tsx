@@ -3,18 +3,15 @@ import { PostCard, Categories } from '@components/index';
 import { notFound } from 'next/navigation';
 import { CategoryType } from 'types/types';
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
-
-export default async function CategoryPostPage({ params }: Props) {
+export default async function CategoryPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const posts = await getCategoryPosts(params.slug);
 
-
   if (!posts || posts.length === 0) {
-    return notFound();
+    notFound();
   }
 
   return (
@@ -35,7 +32,6 @@ export default async function CategoryPostPage({ params }: Props) {
   );
 }
 
-// generating static params for dynamic routes
 export async function generateStaticParams() {
   const categories = await getCategories();
 
@@ -44,5 +40,4 @@ export async function generateStaticParams() {
   }));
 }
 
-// isr
 export const revalidate = 60;
