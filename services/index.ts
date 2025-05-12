@@ -183,7 +183,7 @@ const getFeaturedPosts = async (): Promise<PostType[]> => {
 	return result.posts;
 };
 
-const getCategoryPosts = async (slug: string): Promise<PostType[]> => {
+const getCategoryPosts = async (slug: string) => {
   const query = gql`
     query GetCategoryPosts($slug: String!) {
       posts(where: { categories_some: { slug: $slug } }) {
