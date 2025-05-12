@@ -15,6 +15,10 @@ export type CategoriesProps = {
   asLink?: boolean;
 };
 
+export type CategoryPostProps = {
+  posts: { node: PostType }[]; // Define the type for the posts prop
+};
+
 // header 
 export type HeaderProps = {
   categories?: CategoryType[];
@@ -86,14 +90,13 @@ export type ContentChildType = {
 export type CommentType = {
   name: string;
   createdAt: string;
-  message: string;
-}
-export type CommentProps = { 
+  comment: string;
   slug: string;
-};
+}
 
 export type CommentsFormProps = {
-  message: string;
+  name: string;
+  comment: string;
   email: string;
   slug: string;
 };

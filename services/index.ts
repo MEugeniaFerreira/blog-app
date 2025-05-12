@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { PostType, CategoryType } from 'types/types';
+import { PostType, CategoryType, CommentType } from 'types/types';
 
 const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT as string;
 
@@ -42,19 +42,19 @@ const getPosts = async (): Promise<PostType[]> => {
 
 const getPostDetails = async (slug: string): Promise<PostType> => {
 	const query = gql`
-    query GetPostDetails($slug: String!) {
-      post(where: { slug: $slug }) {
-        author {
-          bio
-          name
-          id
-          photo {
-            url
-          }
-        }
-        createdAt
-        slug
-        title
+		query GetPostDetails($slug: String!) {
+			post(where: { slug: $slug }) {
+				author {
+					bio
+					name
+					id
+					photo {
+						url
+					}
+				}
+				createdAt
+				slug
+				title
 				excerpt
 				featuredImage {
 					url
@@ -66,13 +66,13 @@ const getPostDetails = async (slug: string): Promise<PostType> => {
 				content {
 					raw
 				}
-      }
-    }
-  `;
+			}
+		}
+	`;
 
-  const result = await request<{ post: PostType }>(graphqlAPI, query, { slug });
+	const result = await request<{ post: PostType }>(graphqlAPI, query, { slug });
 
-  return result.post;
+	return result.post;
 };
 
 // Get Recent Posts (excluding a slug)
@@ -133,4 +133,79 @@ const getCategories = async (): Promise<CategoryType[]> => {
 	return result.categories;
 };
 
-export { getPosts, getRecentPosts, getSimilarPosts, getCategories, getPostDetails };
+const submitComment = async (commentObj: { name: string; email: string; comment: string; slug: string }) => {
+	const result = await fetch('/api/comments', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(commentObj),
+	});
+
+	return result.json();
+};
+
+const getComments = async (slug: string) => {
+	const query = gql`
+		query GetComments($slug: String!) {
+			comments(where: { post: { slug: $slug } }) {
+				name
+				createdAt
+				comment
+			}
+		}
+	`;
+	const result = await request<{ comments: CommentType[] }>(graphqlAPI, query, { slug });
+	return result.comments;
+};
+
+const getFeaturedPosts = async (): Promise<PostType[]> => {
+	const query = gql`
+		query GetFeaturedPosts {
+			posts(where: { featuredPost: true }) {
+				author {
+					name
+					photo {
+						url
+					}
+				}
+				featuredImage {
+					url
+				}
+				title
+				slug
+				createdAt
+			}
+		}
+	`;
+
+	const result = await request<{ posts: PostType[] }>(graphqlAPI, query);
+	return result.posts;
+};
+
+const getCategoryPosts = async (slug: string): Promise<PostType[]> => {
+  const query = gql`
+    query GetCategoryPosts($slug: String!) {
+      posts(where: { categories_some: { slug: $slug } }) {
+        title
+        slug
+        excerpt
+        featuredImage {
+          url
+        }
+        createdAt
+        author {
+          name
+          photo {
+            url
+          }
+        }
+      }
+    }
+  `;
+
+  const result = await request<{ posts: PostType[] }>(graphqlAPI, query, { slug });
+  return result.posts;
+}
+
+export { getPosts, getRecentPosts, getSimilarPosts, getCategories, getPostDetails, submitComment, getComments, getFeaturedPosts, getCategoryPosts };

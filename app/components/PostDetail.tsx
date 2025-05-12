@@ -4,7 +4,9 @@ import { PostProps, ContentChildType, ContentType } from 'types/types';
 import { format, parseISO } from 'date-fns';
 
 const PostDetail = ({ post }: PostProps) => {
-	const renderElementByType = (index: number, content: React.ReactNode, type: string, obj: ContentType) => {
+	
+  const renderElementByType = (index: number, content: React.ReactNode, type: string, obj: ContentType) => {
+    
     const types: Record<string, React.ReactNode> = {
 			'heading-three': (
 				<h3 key={index} className='text-xl font-semibold mb-4'>
@@ -49,8 +51,9 @@ const PostDetail = ({ post }: PostProps) => {
 						<Image unoptimized alt={post.author.name} width={40} height={40} className='align-middle rounded-full' src={post.author.photo?.url /*  || '/fallback-avatar.jpg' */} />
 						<p className='inline align-middle text-gray-700 ml-2 text-lg'>{post.author.name}</p>
 					</div>
+
 					<div className='font-medium text-gray-700'>
-						<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 inline mr-2 text-pink-500' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+						<svg xmlns='http://www.w3.org/2000/svg' className='h-6 w-6 inline mr-2 text-blue-500' viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
 							<path d='M12 8v4l3 3m7 5a2 2 0 01-2 2H4a2 2 0 01-2-2V4a2 2 0 012-2h16a2 2 0 012 2v16z' />
 						</svg>
 						<span>{format(parseISO(post.createdAt), 'MMM dd, yyyy')}</span>
