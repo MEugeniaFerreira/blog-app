@@ -29,7 +29,7 @@ export async function POST(req: Request) {
   }
 `;
 
-	console.log('Request body:', { name, email, comment, slug });
+/* 	console.log('Request body:', { name, email, comment, slug }); */
 
 
   try {

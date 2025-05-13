@@ -21,7 +21,7 @@ const PostWidget = ({ categories, slug } : PostWidgetProps) => {
     }
   }, [categories, slug])
 
-  console.log('relatedPosts', relatedPosts)
+/*   console.log('relatedPosts', relatedPosts) */
 
   return (
     <>
@@ -34,8 +34,8 @@ const PostWidget = ({ categories, slug } : PostWidgetProps) => {
             <div className='w-16 flex-none'>
               <Image
                 alt={post.title}
-                height={60}
-                width={60}
+                height={64}
+                width={64}
                 className='align-middle rounded-full object-cover w-full h-full'
                 src={post.featuredImage.url}
               />

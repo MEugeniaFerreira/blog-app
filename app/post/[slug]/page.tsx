@@ -8,7 +8,8 @@ type Props = {
 };
 
 export default async function PostPage({ params }: Props) {
-  const post = await getPostDetails(params.slug);
+  const { slug } = await params; // awaiting params before accessing the properties
+  const post = await getPostDetails(slug);
 
   if (!post) {
     notFound(); //will trigger the 404 page
