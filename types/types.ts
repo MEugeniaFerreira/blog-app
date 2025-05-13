@@ -47,9 +47,7 @@ export type PostType = {
   featuredImage: {
     url: string;
   };
-  content: 
-    | string // Allow string for mock data
-    | {
+  content: {
     raw: {
       children: ContentType[];
     };

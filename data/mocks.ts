@@ -8,7 +8,20 @@ const posts: PostType[] = [
       { name: 'React', slug: 'react' },
       { name: 'CSS', slug: 'css' },
     ],
-    content: 'This is the content of the post about React with Tailwind.',
+    content: {
+      raw: {
+        children: [
+          {
+            type: 'paragraph',
+            src: '',
+            title: '',
+            children: [
+              { text: 'This is the content of the post about React with Tailwind.' },
+            ],
+          },
+        ],
+      },
+    },
     featuredImage: {
       url: 'https://example.com/image.jpg',
     },
@@ -28,7 +41,20 @@ const posts: PostType[] = [
       { name: 'GraphQL', slug: 'graphql' },
       { name: 'API', slug: 'api' },
     ],
-    content: 'This is the content of the post about GraphQL basics.',
+    content: {
+      raw: {
+        children: [
+          {
+            type: 'paragraph',
+            src: '',
+            title: '',
+            children: [
+              { text: 'This is the content of the post about GraphQL basics.' },
+            ],
+          },
+        ],
+      },
+    },
     featuredImage: {
       url: 'https://example.com/graphql-image.jpg',
     },
