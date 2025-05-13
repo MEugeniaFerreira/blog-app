@@ -5,35 +5,33 @@ const graphqlAPI = process.env.NEXT_PUBLIC_GRAPHCMS_ENDPOINT as string;
 
 // Get All Posts
 const getPosts = async (): Promise<PostType[]> => {
-	const query = gql`
-		query GetAllPosts {
-			postsConnection {
-				edges {
-					node {
-						author {
-							bio
-							name
-							id
-							photo {
-								url
-							}
-						}
-						createdAt
-						slug
-						title
-						excerpt
-						featuredImage {
-							url
-						}
-						categories {
-							name
-							slug
-						}
-					}
-				}
-			}
-		}
-	`;
+  const query = gql`
+    query GetAllPosts {
+      postsConnection(orderBy: createdAt_DESC) {
+        edges {
+          node {
+            title
+            slug
+            excerpt
+            createdAt
+            featuredImage {
+              url
+            }
+            author {
+              name
+              photo {
+                url
+              }
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `;
 
 	const result = await request<{ postsConnection: { edges: { node: PostType }[] } }>(graphqlAPI, query);
 
