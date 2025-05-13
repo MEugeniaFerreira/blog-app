@@ -8,7 +8,9 @@ export default async function CategoryPostPage({
 }: {
   params: { slug: string };
 }) {
-  const posts = await getCategoryPosts(params.slug);
+
+  const { slug } = params; 
+  const posts = await getCategoryPosts(slug);
 
   if (!posts || posts.length === 0) {
     notFound();
