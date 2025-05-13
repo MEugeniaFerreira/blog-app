@@ -6,10 +6,10 @@ import { CategoryType } from 'types/types';
 export default async function CategoryPostPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
 
-  const { slug } = params; 
+  const { slug } = await params; 
   const posts = await getCategoryPosts(slug);
 
   if (!posts || posts.length === 0) {

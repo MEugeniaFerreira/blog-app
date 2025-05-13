@@ -4,15 +4,15 @@ import { CategoryType } from 'types/types';
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export default async function PostPage({ params }: Props) {
-  const { slug } = await params; // awaiting params before accessing the properties
+  const { slug } = await params; // awaiting params before accessing properties
   const post = await getPostDetails(slug);
 
   if (!post) {
-    notFound(); //will trigger the 404 page
+    notFound(); // triggers the 404 page
   }
 
   return (
@@ -38,7 +38,7 @@ export default async function PostPage({ params }: Props) {
   );
 }
 
-// static params for each post slug at build time
+// static params for each post slug
 export async function generateStaticParams() {
   const posts = await getPosts();
 
